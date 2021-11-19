@@ -1,6 +1,6 @@
 # Summary
 
 - [Introduction](./chapter_1.md)
-- [Technical Overview](./chapter_2.md)
-- [Adding Data](./chapter_3.md)
-- [Testing](./chapter_4.md)
+- [Getting Started](./chapter_2.md)
+- [Technical Overview](./chapter_3.md)
+- [Iris Pallet](./chapter_4.md)

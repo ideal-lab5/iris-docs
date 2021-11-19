@@ -1,27 +1,130 @@
-# Assets
+# Technical Overview
 
-The main pallet we provide is built as a wrapper around the assets pallet.
+1. [Tech Stack](#tech-stack)
+2. [Node Roles](#node-roles)
+3. [Runtime Storage](#runtime-storage)
+4. [Extrinsics](#extrinsics)
+5. [RPC](#rpc)
 
-## The Ticket Asset Class
-When a node adds data to Iris it also constructs a new asset class backed by some initial amount of native tokens  (OBOL). 
+## Tech Stack
+### IPFS
+Our integration with rust-ipfs (embedded within the substrate runtime) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master. 
 
-The creator of this asset class is then authorized to mint new assets, which we refer to as `tickets`. Our initial use case makes a few assumptions that we will break in the future.
-- Each owner and CID combination has at most one associated asset class
-- Asset classes can correspond to at most one owner/CID combination
-- Owning a non-zero quantity of assets in an asset class grants the owner access to the underlying data
+The ui we provide relies on a local IPFS instance to add data (iris does not). To add data through the UI you must first run an instance of IPFS locally (you don't need to run an IPFS if you want read only access).
 
-### Asset Class Creation
-The Asset class is created when an owner adds some data to the network via the `ipfs_add_bytes` extrinsic. The calling node submits all needed parameters, which are passed through to an OCW who then becomes responsible for creating the asset class on behalf of the original caller after it has process an IPFS request. To be explicit, apart from the file data's existence to be confirmed, to create the asset class we require:
+### Substrate
+Substrate is a blockchain framework built by parity. It provides the building blocks for creating a blockchain, including the database, consensus, rpc, and much more. 
 
-- balance: The initial balance to back the asset (in the native token OBOL)
-- assetId: A unique id to identify the asset
+Iris is a Proof of Authority blockchain. Since the OCW currently must send signed transactions, only validator nodes can publish results on chain (for the moment).
 
-#### Asset Id generation
+Pallets
+- assets 
+- balances
+- iris
+- contracts
 
 
-### Creating Tickets 
-To be cute, I would like to call this "printing tickets" but we'll save that for later...
-After an asset class has been created for some associated owner/cid combination, the owner of the asset class can then mint tickets (i.e. assets) within that asset class. This is done through another extrinsic: `mint_tickets`.
+### React
+We use react to build the user interface to interact with our node. We specifically rely on the `polkadotjs` and `ipfs-http-core` libraries.
 
-### The Asset Graveyard
-In order to ensure that dead assets don't build up in runtime storage in the future, we implement a mechanism that destroys asset classes if the underlying data is unavailable for some amount of time. Or maybe even better, the asset class is deflationary: The owner must continue to resupply the underlying, supporting balance, otherwise the asset class collapses and is destroyed, and the underlying data is no longer protected from removal from the network. 
+## Node Roles
+- **Storage Provider**: The storage provider node's responsibility includes processing commands added to the queue by other nodes and submitting the results of the command on chain. 
+- **Content Owner**: A content owner is responsible for making data available in some external IPFS node and interacting with Iris to ingest and maintain access to it.
+- **Content Consumer**: A content consumer is responsible for using owned tickets to access owned content.
+
+## Runtime Storage
+---
+* DataQueue
+* Stores a vector of DataCommand enums, which are processed by iris nodes to interact with IPFS.
+```
+StorageValue<
+      _,
+      Vec<DataCommand<<T::Lookup as StaticLookup>::Source, T::AssetId, T::Balance, T::AccountId>>,
+      ValueQuery
+  >
+```
+---
+
+ * AssetClassOwnership
+ * Maps owner to cid to asset id
+  ```
+    StorageDoubleMap<
+        _,
+        Blake2_128Concat,
+        T::AccountId,
+        Blake2_128Concat,
+        Vec<u8>,
+        T::AssetId,
+        ValueQuery,
+    >
+  ```  
+
+---  
+* AssetAccess
+* Maps an accountId to a Cid they have access to, to the account id of the owner of the underlying asset class
+  ```
+   StorageDoubleMap<
+        _,
+        Blake2_128Concat,
+        T::AccountId,
+        Blake2_128Concat,
+        Vec<u8>,
+        T::AccountId,
+        ValueQuery,
+    >
+  ```
+
+## Extrinsics
+
+### Iris Pallet
+--- 
+- `create_storage_asset`
+- description: submits an on-chain request to fetch data and add it to iris 
+- weight: `0`
+- parameters:
+  * `admin`: The address of the node who the asset administration is assigned
+  * `addr`: the multiaddress where the data exists
+       example: `/ip4/192.168.1.170/tcp/4001/p2p/12D3KooWMvyvKxYcy9mjbFbXcogFSCvENzQ62ogRxHKZaksFCkAp`
+  * `cid`: the cid to fetch from the multiaddress
+       example: `QmPZv7P8nQUSh2CpqTvUeYemFyjvMjgWEs8H1Tm8b3zAm9`
+  * `id`: the unique id of the asset class -> should be generated instead
+  * `balance`: the balance to back the asset class which will be created
+---
+* `request_data`
+* description: Queue a request to retrieve data behind some owned CID from the IPFS network
+* weight: `0`
+* parameters
+  * `owner`: The owner node
+  * `cid`: the cid to which you are requesting access
+---
+* `submit_ipfs_results`
+  * Description: submits IPFS results on chain and creates new ticket config in runtime storage
+  * Parameters:
+    * `admin`: The admin account
+    * `cid`: The cid generated by the OCW
+    * `id`: The AssetId (passed through from the create_storage_asset call)
+    * `balance`: The balance (passed through from the create_storage_asset call)
+---
+* `mint_tickets`
+* Description: Only callable by the owner of the asset class. Mint a static number of assets (tickets) for some asset class (cid).
+ * weight: `0`
+ * Parameters:
+   * origin: should be the owner of the asset class
+   * beneficiary: the address to which the newly minted assets are assigned
+   * cid: a cid owned by the origin, for which an asset class exists
+   * amount: the number of tickets to mint
+---
+* `purchase_ticket`
+  * Description: Not yet implemented
+---
+
+## RPC 
+
+### Data Ejection 
+- `iris_retrieveBytes`
+- Description: This RPC endpoint allows external origins to access data that exists in Iris, to which they have been granted access. 
+- Parameters:
+  - message: a signed messaged
+  - accountId: the account id of the address requesting the data. Should be the same account that signed the message
+  - block_number: needed? could possibly use this instead of accountid.
+

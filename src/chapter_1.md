@@ -1,47 +1,37 @@
 # Introduction
-Iris is a substrate-based decentralized storage network. Iris intends to be extensible and used by parachains and smart contracts to take advantage of truly decentralized storage. 
+This is the official documentation for the Iris fork of Substrate, available at: https://github.com/iridium-labs/substrate/tree/iris.
 
-Iris treats everything as an asset. When data is added to the network a brand new asset class is created to identify that data. Assets derived (minted) from this asset class act as proof of access to the underlying content associated with the asset class.
+`This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
-On top of decentralized storage, Iris delivers four key features:
-1) Indexability
-2) Security
-3) Availability
-4) Governance
+## What is Iris?
+Iris is a decentralized storage network built with Substrate and IPFS. Iris is extensible and can be used by parachains and smart contracts (via XCM) to take advantage of fully decentralized storage across multiple chains and dapps. The Iris runtime provides indexability, security, availability, and governance on top of a fully decentralized network.
 
-## IPFS
-Our integration with rust-ipfs (embedded within the substrate runtime) is based on prior work done here: https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html, with the iridium-labs/substrate offchain_ipfs_v3 branch being maintaining in sync with the latest substrate master. 
+Iris treats everything as an asset.  Content owners create new asset classes when adding data to the network. Assets derived (minted) from this asset class act as proof of access to the underlying content associated with the asset class. Owners of assets are authorized to download data from Iris. See [assets overview](../src/chapter_4.md) for more on this.
 
-# Usage
+## How does it work?
+Iris functions by taking advantage of an IPFS instance embedded in the runtime, which allows us to track input to and output from the DHT within the blockchain. Iris exposes extrinsics that allow nodes to add requests to the DHT to a queue. Offchain workers that can interact with IPFS process queued requests and publish the results on-chain.
 
-## Installation
+Iris has a secondary functionality as well, and that is to act as an asset creation and management pallet. To accomplish this we couple with the [assets pallet](https://github.com/iridium-labs/substrate/blob/iris/frame/assets/src/lib.rs). Each CID added to the network is treated as a new asset class, with ownership of assets derived from the asset class representing access to the underlying content. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with. 
 
-### Sources
-Clone the repo:
-`git clone https://github.com/iridium-labs/substrate.git`
+## Key Features
+- Governance
+  We will provide a robust governance framework that allows us to accomplish the same level of governance as major platform and service providers while maintaining decentralization and full transparency. 
+  - We plan to build a moderation mechanism into this framework
+  
+- Security
+  The owner of an asset class is under total control over which nodes can and can't own assets derived from this class. That is, they maintain control over who can access their content. 
 
-From the master branch:
-Build the node:
-`cargo +nightly build --release`
+- Availability
+  - earn rewards by providing storage to the network
+  - Users provide incentive for storage providers to pin their content.
 
-And then run:
-`cargo +nightly run -- --dev --tmp`
+## Vision
+The big picture is for Iris to act as a storage parachain used in polkadot and kusama. We envision that a vast number of dapps using our decentralized storage scheme could easily be made possible. 
 
-### Docker
-(The easiest way to install) DNE... future state.
-`docker install iridium/substrate`
+https://github.com/w3f/Grants-Program/blob/master/applications/iris.md
 
-Build the docker image:
-`docker build -t iridium/substrate -f ./.maintain/Dockerfile .`
+## Contact
+- twitter: https://twitter.com/Iridium_labs
+- website: http://iridium.industries/
+- email: driemworks@iridium.industries
 
-```
-docker run -p 9944:9944 \
-  -p 9933:9933 \
-  -p 30333:30333 \
-  -p 9615:9615 \
-  -it \
-  --rm \
-  --name node-template \
-  iridium/substrate \
-  --dev --ws-external --rpc-external
-```
