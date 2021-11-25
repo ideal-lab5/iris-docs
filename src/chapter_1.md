@@ -11,7 +11,7 @@ Iris treats everything as an asset.  Content owners create new asset classes whe
 ## How does it work?
 Iris functions by taking advantage of an IPFS instance embedded in the runtime, which allows us to track input to and output from the DHT within the blockchain. Iris exposes extrinsics that allow nodes to add requests to the DHT to a queue. Offchain workers that can interact with IPFS process queued requests and publish the results on-chain.
 
-Iris has a secondary functionality as well, and that is to act as an asset creation and management pallet. To accomplish this we couple with the [assets pallet](https://github.com/iridium-labs/substrate/blob/iris/frame/assets/src/lib.rs). Each CID added to the network is treated as a new asset class, with ownership of assets derived from the asset class representing access to the underlying content. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with. 
+Additionally, Iris acts as an asset creation and management pallet. To accomplish this we couple with the [assets pallet](https://github.com/iridium-labs/substrate/blob/iris/frame/assets/src/lib.rs). Each CID added to the network is treated as a new asset class, with ownership of assets derived from the asset class representing access to the underlying content. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with. 
 
 ## Key Features
 - Governance

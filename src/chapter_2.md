@@ -58,10 +58,13 @@ docker run -p 9944:9944 \
   -p 9615:9615 \
   -it \
   --rm \
-  --name node-template \
+  --name iris-alice \
   iridium/substrate \
-  --dev --ws-external --rpc-external
+  --dev --ws-external --rpc-external \
+  --node-key 0000000000000000000000000000000000000000000000000000000000000001
 ```
+
+*note: node-key is only needed if you want this node to be a bootnode*
 
 # Interacting with your node
 *See the [tech overview](../src/chapter_3.md) for information on extrinsics, rpc, etc.*

@@ -35,7 +35,7 @@ We use react to build the user interface to interact with our node. We specifica
 ## Runtime Storage
 ---
 * DataQueue
-* Stores a vector of DataCommand enums, which are processed by iris nodes to interact with IPFS.
+* Stores a vector of `DataCommand` enums, which are processed by iris nodes to interact with IPFS.
 ```
 StorageValue<
       _,
@@ -118,13 +118,19 @@ StorageValue<
   * Description: Not yet implemented
 ---
 
+## Structs 
+
+- rpc request/response structs here
+
+---
+
 ## RPC 
 
 ### Data Ejection 
 - `iris_retrieveBytes`
-- Description: This RPC endpoint allows external origins to access data that exists in Iris, to which they have been granted access. 
+- Description: This RPC endpoint allows external origins to access data that exists in Iris, to which they have been granted access. The account id should be the account id of the caller node.
 - Parameters:
-  - message: a signed messaged
-  - accountId: the account id of the address requesting the data. Should be the same account that signed the message
-  - block_number: needed? could possibly use this instead of accountid.
+  - signature: A signature
+  - account: An account id 
+  - signed_message: A message signed by the account using the signature
 

@@ -27,4 +27,3 @@ First, a node that owns some positive balance of an asset requests access to it:
 ![data-ejection part 1](./resources/data_ejection_p1.drawio.png)
 
 Then the node calls the RPC endpoint emitted:
-![data-ejection part 1](./resources/data_ejection_p1.drawio.png)
