@@ -26,8 +26,6 @@ cargo +nightly build --release
 From the latest sources, build the docker image:
 `docker build -t iridium/substrate -f ./.maintain/Dockerfile .`
 
-
-
 ## Running
 
 ### From Source
@@ -90,7 +88,7 @@ npm start
 
 # Testing
 
-Run the test with `cargo test`.
+Run the tests with `cargo test`.
 
 ## Guidelines
 We aim for a minimum of 80% coverage on new code. 

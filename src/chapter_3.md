@@ -8,20 +8,19 @@
 
 ## Tech Stack
 ### IPFS
-Our integration with rust-ipfs (embedded within the substrate runtime) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master. 
+Our integration with rust-ipfs is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master. 
 
 The ui we provide relies on a local IPFS instance to add data (iris does not). To add data through the UI you must first run an instance of IPFS locally (you don't need to run an IPFS if you want read only access).
 
 ### Substrate
 Substrate is a blockchain framework built by parity. It provides the building blocks for creating a blockchain, including the database, consensus, rpc, and much more. 
 
-Iris is a Proof of Authority blockchain. Since the OCW currently must send signed transactions, only validator nodes can publish results on chain (for the moment).
+Iris is a Proof of Authority blockchain. Since the OCW currently must send signed transactions, only validator nodes can publish results on chain.
 
 Pallets
 - assets 
 - balances
 - iris
-- contracts
 
 
 ### React
@@ -119,8 +118,6 @@ StorageValue<
 ---
 
 ## Structs 
-
-- rpc request/response structs here
 
 ---
 
