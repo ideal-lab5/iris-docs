@@ -7,7 +7,7 @@
 
 ## Installation
 
-There are two ways to install iris, either building the source code, building a docker image, or simply installing from docker.
+There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker.
 
 ### Sources
 ```
