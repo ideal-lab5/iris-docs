@@ -1,5 +1,6 @@
 # Introduction
-This is the official documentation for Iris, available at: https://github.com/iridium-labs/substrate/tree/iris.
+This is the official documentation for Iris, available [here](https://github.com/iridium-labs/substrate/tree/iris).
+
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
 ## What is Iris?
