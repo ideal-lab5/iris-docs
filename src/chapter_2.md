@@ -28,7 +28,7 @@ From the latest sources, build the docker image:
 
 ## Running
 
-### From Source
+### From Sources
 ```
 # purge the local chain data
 ./target/release/node-template purge-chain --base-path /tmp/alice --dev -y
