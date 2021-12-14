@@ -18,13 +18,13 @@ cargo +nightly build --release
 ```
 
 ### Docker
-(The easiest way to install) DNE... future state.
-`docker install iridium/substrate`
+Install from the docker hub
+`docker pull iridiumlabs/iris`
 
 **OR**
 
 From the latest sources, build the docker image:
-`docker build -t iridium/substrate -f ./.maintain/Dockerfile .`
+`docker build -t iridiumlabs/iris -f ./.maintain/Dockerfile .`
 
 ## Running
 
@@ -57,7 +57,7 @@ docker run -p 9944:9944 \
   -it \
   --rm \
   --name iris-alice \
-  iridium/substrate \
+  iridiumlabs/iris \
   --dev --ws-external --rpc-external \
   --node-key 0000000000000000000000000000000000000000000000000000000000000001
 ```
@@ -68,27 +68,32 @@ docker run -p 9944:9944 \
 *See the [tech overview](../src/chapter_3.md) for information on extrinsics, rpc, etc.*
 
 ## PolkadotJs
-As the UI undergoes development, the most reliable way to interact with your node is to use the default polkadotjs ui: polkadot.js.org/ .
+As the UI undergoes development, the most *stable* way to interact with your node is to use the default [polkadotjs ui](https://polkadot.js.org/).
 
 ## The Iris UI
+The Iris UI provides a mechanism to add and retrieve data from Iris, to create an asset class, mint assets, privision data access, and manage both asset classes and assets.
 
-FUTURE URL: https://app.iridium.industries
+If you intend to add data to Iris, you must also run an IPFS node locally. This holds for running from sources as well as the docker image. Run IPFS with `ipfs daemon`.
 
-The Iris UI is an example of how to integrate with an Iris node. It provides a mechanism to add and retrieve data to/from Iris, to create an asset class, mint assets, and manage both asset classes and assets.
-
-If you intend to add data to Iris, you must also run an IPFS node locally:
-`ipfs daemon`
-
+### Running from Sources
 ```
 git clone https://github.com/iridium-labs/ui.git
 cd ui
 npm i
-npm start
+REACT_APP_IPV4=<your ipv4> npm start
+```
+
+### Running from Docker
+
+```
+docker pull iridiumlabs/iris-ui
+# replace w.x.y.z with your ip
+docker run -it --rm -p 3000:80 -e REACT_APP_IPV4="w.x.y.z" iridiumlabs/iris-ui
 ```
 
 # Testing
 
-Run the tests with `cargo test`.
+Run the unit tests with `cargo test`.
 
 ## Guidelines
 We aim for a minimum of 80% coverage on new code. 
@@ -102,8 +107,6 @@ https://polkadot.js.org/apps/
 
 To convert strings to hex, I like this tool:
 https://onlinestringtools.com/convert-string-to-hexadecimal
-
-`curl http://localhost:9933 -H "Content-Type:application/json;charset=utf-8" -d '{"jsonrpc": "2.0", "id": "1", "method": "iris_retrieveBytes", "params": ["", "", ""]}'`
 
 #### Querying Substrate Storage
 https://www.shawntabrizi.com/substrate-js-utilities/

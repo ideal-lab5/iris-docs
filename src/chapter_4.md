@@ -1,5 +1,5 @@
 # Assets and Storage
-In Iris, owned content is treated as a unique asset class and access to the content is controlled by ownership of assets minted from the asset class. Future plans include building a bridge to allow these assets to be transfered offchain, or to be used in smart contracts. 
+In Iris, owned content is treated as a unique asset class and access to the content is controlled by ownership of assets minted from the asset class. Future plans include building a bridge to allow these assets to be transfered cross-chain, or to be used in smart contracts. 
 
 
 ## The Ticket Asset Class

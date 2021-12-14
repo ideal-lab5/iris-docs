@@ -139,13 +139,12 @@ StorageValue<
 ---
 * `purchase_ticket`
   * Description: Not yet implemented
----
-
-## Structs
 
 ---
 
 ## RPC 
+
+[See here for more details](./chapter_5.md)
 
 ### Data Ejection 
 - `iris_retrieveBytes`
@@ -154,4 +153,6 @@ StorageValue<
   - signature: A signature
   - account: An account id 
   - signed_message: A message signed by the account using the signature
+
+
 
