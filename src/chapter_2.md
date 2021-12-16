@@ -88,7 +88,7 @@ REACT_APP_IPV4=<your ipv4> npm start
 ```
 docker pull iridiumlabs/iris-ui
 # replace w.x.y.z with your ip
-docker run -it --rm -p 3000:80 -e REACT_APP_IPV4="w.x.y.z" iridiumlabs/iris-ui
+docker run -it --rm -p 3000:3000 -e "REACT_APP_IPV4=w.x.y.z" iridiumlabs/iris-ui
 ```
 
 # Testing
