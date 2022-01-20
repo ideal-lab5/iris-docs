@@ -108,7 +108,7 @@ StorageValue<
 * weight: `0`
 * parameters
   * `owner`: The owner node
-  * `cid`: the cid to which you are requesting access
+  * `asset_id`: the id of the asset class whose associated CID you are requesting access to
 ---
 * `submit_ipfs_add_results`
 * Description: submits IPFS results on chain and creates new ticket config in runtime storage. Should only be callable by offchain workers.
@@ -134,8 +134,12 @@ StorageValue<
  * weight: `0`
  * Parameters:
    * `beneficiary`: the address to which the newly minted assets are assigned
-   * `cid`: a cid owned by the origin, for which an asset class exists
+   * `asset_id`: The asset id of an asset class owned by the calling node from which assets will be minted
    * `amount`: the number of tickets to mint
+---
+
+---
+
 ---
 * `purchase_ticket`
   * Description: Not yet implemented
