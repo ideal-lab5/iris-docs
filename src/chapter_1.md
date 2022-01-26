@@ -6,8 +6,7 @@ This is the official documentation for [Iris](https://github.com/iridium-labs/su
 
 ![sponsored by web3 foundation](./resources/web3_foundation_grants_badge_black.png)
 
-Read our initial web3 grant proposal here!
-https://github.com/w3f/Grants-Program/blob/master/applications/iris.md
+Read our initial web3 grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris.md)
 
 ## What is Iris?
 
