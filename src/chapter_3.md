@@ -2,161 +2,36 @@
 
 1. [Tech Stack](#tech-stack)
 2. [Node Roles](#node-roles)
-3. [Runtime Storage](#runtime-storage)
-4. [Extrinsics](#extrinsics)
-5. [RPC](#rpc)
+3. [Runtime](#runtime)
 
 ## Tech Stack
+
 ### IPFS
-Our integration with rust-ipfs is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master. 
+
+Our integration with [rust-ipfs](https://github.com/rs-ipfs/rust-ipfs) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master.
 
 The ui we provide relies on a local IPFS instance to add data (iris does not). To add data through the UI you must first run an instance of IPFS locally (you don't need to run an IPFS if you want read only access).
 
 ### Substrate
-Substrate is a blockchain framework built by parity. It provides the building blocks for creating a blockchain, including the database, consensus, rpc, and much more. 
 
-Iris is a Proof of Authority blockchain. Since the OCW currently must send signed transactions, only validator nodes can publish results on chain.
-
-Pallets
-- assets 
-- balances
-- iris
-
+Substrate is a blockchain framework built by parity. It provides the building blocks for creating a blockchain, including the database, consensus, rpc, and much more.
 
 ### React
+
 We use react to build the user interface to interact with our node. We specifically rely on the `polkadotjs` and `ipfs-http-core` libraries.
 
 ## Node Roles
-- **Storage Provider**: The storage provider node's responsibility includes processing commands added to the queue by other nodes and submitting the results of the command on chain. 
+
+- **Storage Provider**: The storage provider node's responsibility includes processing commands added to the queue by other nodes and submitting the results of the command on chain.
 - **Content Owner**: A content owner is responsible for making data available in some external IPFS node and interacting with Iris to ingest and maintain access to it.
 - **Content Consumer**: A content consumer is responsible for using owned tickets to access owned content.
 
-## Runtime Storage
----
-* DataQueue
-* Stores a vector of `DataCommand` enums, which are processed by iris nodes to interact with IPFS.
-```
-StorageValue<
-      _,
-      Vec<DataCommand<<T::Lookup as StaticLookup>::Source, T::AssetId, T::Balance, T::AccountId>>,
-      ValueQuery
-  >;
-```
----
+## Runtime
 
- * AssetClassOwnership
- * Maps owner to cid to asset id
-  ```
-    StorageDoubleMap<
-        _,
-        Blake2_128Concat,
-        T::AccountId,
-        Blake2_128Concat,
-        Vec<u8>,
-        T::AssetId,
-        ValueQuery,
-    >;
-  ```  
+Iris is a proof of authority network. In the future we intend to migrate to a PoS network, but due to the current limitations of rust-ipfs we will use PoA.
 
----  
-* AssetAccess
-* Maps an accountId to a Cid they have access to, to the account id of the owner of the underlying asset class
-  ```
-   StorageDoubleMap<
-        _,
-        Blake2_128Concat,
-        T::AccountId,
-        Blake2_128Concat,
-        Vec<u8>,
-        T::AccountId,
-        ValueQuery,
-    >;
-  ```
+The Iris runtime builds from exsiting modules within the Substrate runtime, specifically the session and assets modules. In general, the Iris-Assets module, which depends on the assets modules, provides data ingestion, and asset class management. The Iris-Session module enables session based storage for content owner, where storage is provided by network validators. Read more on the Iris-assets and Iris-Session modules [here](./pallets.md).
 
----
-* BootstrapNodes
-* Keeps track of which IPFS nodes are available for use as bootstrap nodes
- ```
-     pub(super) type BootstrapNodes<T: Config> = StorageMap<
-        _,
-        Blake2_128Concat,
-        Vec<u8>,
-        Vec<OpaqueMultiaddr>,
-        ValueQuery,
-    >;
-  ```
+![runtime modules](./resources/runtime_modules.png)
 
-## Extrinsics
-
-### Iris Pallet
---- 
-* `create_storage_asset`
-* description: submits an on-chain request to fetch data and add it to iris 
-* weight: `0`
-* parameters:
-  * `admin`: The address of the node who the asset administration is assigned
-  * `addr`: the multiaddress where the data exists
-       example: `/ip4/192.168.1.170/tcp/4001/p2p/12D3KooWMvyvKxYcy9mjbFbXcogFSCvENzQ62ogRxHKZaksFCkAp`
-  * `cid`: the cid to fetch from the multiaddress
-       example: `QmPZv7P8nQUSh2CpqTvUeYemFyjvMjgWEs8H1Tm8b3zAm9`
-  * `name`: A name to associate with the owned content
-  * `id`: the unique id of the asset class -> should be generated instead
-  * `balance`: the balance to back the asset class which will be created
----
-* `request_data`
-* description: Queue a request to retrieve data behind some owned CID from the IPFS network
-* weight: `0`
-* parameters
-  * `owner`: The owner node
-  * `asset_id`: the id of the asset class whose associated CID you are requesting access to
----
-* `submit_ipfs_add_results`
-* Description: submits IPFS results on chain and creates new ticket config in runtime storage. Should only be callable by offchain workers.
-* Parameters:
-  * `admin`: The admin account
-  * `cid`: The cid generated by the OCW
-  * `id`: The AssetId (passed through from the create_storage_asset call)
-  * `balance`: The balance (passed through from the create_storage_asset call)
----
-* `submit_ipfs_identity`
-* submit the results of `ipfs identity` on chain to be encoded in runtime storage as a bootstrap node for the embedded IPFS instances. Should only be callable by offchain workers.
-* Parameters:
-  * `public_key`: The public key of the IPFS node
-  * `multiaddresses`: The collection of multiaddresses that the node is listening on
----
-* `submit_rpc_ready`
-* Emits an event to notify a node that their data is available at some specific host
-* Parameters:
-  * `beneficiary`: The node who is capable of fetching the available data.
----
-* `mint_tickets`
-* Description: Only callable by the owner of the asset class. Mint a static number of assets (tickets) for some asset class (cid).
- * weight: `0`
- * Parameters:
-   * `beneficiary`: the address to which the newly minted assets are assigned
-   * `asset_id`: The asset id of an asset class owned by the calling node from which assets will be minted
-   * `amount`: the number of tickets to mint
----
-
----
-
----
-* `purchase_ticket`
-  * Description: Not yet implemented
-
----
-
-## RPC 
-
-[See here for more details](./chapter_5.md)
-
-### Data Ejection 
-- `iris_retrieveBytes`
-- Description: This RPC endpoint allows external origins to access data that exists in Iris, to which they have been granted access. The account id should be the account id of the caller node.
-- Parameters:
-  - signature: A signature
-  - account: An account id 
-  - signed_message: A message signed by the account using the signature
-
-
-
+*The Iris runtime modules and dependencies*
