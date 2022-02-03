@@ -10,13 +10,13 @@ Read our initial web3 grant proposal [here](https://github.com/w3f/Grants-Progra
 
 ## What is Iris?
 
-Iris is a decentralized storage network that acts as a secure storage layer for Web 3.0. It is **infrastructure for the decentralized web** by providing a decentralized storage layer that can be leveraged by parachains and smart contracts in the Polkadot/Kusama ecosystem, allowing access to content to be transferred across chains and monetized. It provides indexability, security, availability, and governance on top of IPFS, enabling data ownership, access management, and the commodification of latent storage capacity and content delivery. Built with IPFS and Substrate, Iris can be used by parachains and smart contracts to create dapps that leverage private decentralized storage (e.g. from a smart contract deployed to the shiden/astar network).
+Iris is a decentralized storage network that acts as a secure storage layer for Web 3.0. It is **infrastructure for the decentralized web** by providing a decentralized storage layer that can be leveraged by parachains and smart contracts in the Polkadot/Kusama ecosystem, allowing access to content to be transferred across chains and monetized. It provides indexability, security, availability, and governance on top of IPFS, enabling data ownership, access management, and the commodification of latent storage capacity and content delivery. Built with IPFS and Substrate, Iris can be used by parachains and smart contracts to create dapps that leverage private decentralized storage.
 
 ## How does it work?
 
-Iris functions by embedding an IPFS node in the Substrate runtime, allowing us to encode the DHT status within transactions.
+Iris functions by embedding an IPFS node in the Substrate runtime, allowing us to encode the DHT status on-chain.
 
-Owned data is treated as a unique asset class within the blockchain, while access to the data is controlled by an asset minted from the asset class. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with.
+Owned data is treated as a unique asset class within the blockchain, while access to the data is controlled by an asset minted from the asset class. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with. Iris will also have the capability to transfer assets between parachains and smart contracts, enabling a novel way to access data across the web.
 
 ## Key Features
 
