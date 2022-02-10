@@ -1,8 +1,7 @@
 # Technical Overview
 
 1. [Tech Stack](#tech-stack)
-2. [Node Roles](#node-roles)
-3. [Runtime](#runtime)
+3. [Runtime](#the-iris-runtime)
 
 ## Tech Stack
 
@@ -20,18 +19,29 @@ Substrate is a blockchain framework built by parity. It provides the building bl
 
 We use react to build the user interface to interact with our node. We specifically rely on the `polkadotjs` and `ipfs-http-core` libraries.
 
-## Node Roles
+## The Iris Runtime
 
-- **Storage Provider**: The storage provider node's responsibility includes processing commands added to the queue by other nodes and submitting the results of the command on chain.
-- **Content Owner**: A content owner is responsible for making data available in some external IPFS node and interacting with Iris to ingest and maintain access to it.
-- **Content Consumer**: A content consumer is responsible for using owned tickets to access owned content.
-
-## Runtime
-
-Iris is a proof of authority network. In the future we intend to migrate to a PoS network, but due to the current limitations of rust-ipfs we will use PoA.
+Iris functions by embedding an IPFS node within the substrate runtime and allowing substrate nodes to form a private IPFS swarm. By building a blockchain layer on top of the embedded storage, we are able to track calls and responses to IPFS on chain, allowing nodes to be rewarded for storing and retrieving data.
 
 The Iris runtime builds from exsiting modules within the Substrate runtime, specifically the session and assets modules. In general, the Iris-Assets module, which depends on the assets modules, provides data ingestion, and asset class management. The Iris-Session module enables session based storage for content owner, where storage is provided by network validators. Read more on the Iris-assets and Iris-Session modules [here](./pallets.md).
 
 ![runtime modules](./resources/runtime_modules.png)
 
-*The Iris runtime modules and dependencies*
+There are four roles that nodes can take in Iris:
+
+1. data owner
+2. data consumer
+3. validator
+4. storage provider
+
+Data owners are responsible for adding data to the Iris and creating, managing and minting asset classes and assets.
+
+Data consumers are capable of retrieving data from Iris when they hold an asset minted from some owned asset class.
+
+Iris is a PoA network, so validators are responsible for finalizing blocks.
+
+Any validator is capable of being a storage provider. A storage provider is a validator that is actively storing some data associated with an owned asset class. Validators are incentivized to store data by earning reward points when they process IPFS requests or when data they are pinning is accessed.
+
+Below, we see a high-level overview of how these four roles interact with one another. In the near future we intend to create a smart contract to realize an Iris Assets Exchange, a marketplace for data owners and data consumers to buy, sell, and share assets.
+
+![iris-overview](./resources/iris_overview.png)

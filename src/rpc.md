@@ -9,7 +9,11 @@
 
 ## Implementation
 
-The RPC endpoint leverages the embedded IPFS node to fetch data from storage providers.
+The RPC endpoint reads from offchain storage to fetch the bytes. Data is added to a unqieu node's offchain storage when the following conditions are met:
+
+1. The node owns an asset minted from some asset class
+2. A node is storing the data
+3. The node invoked the `request_bytes` extrinsic
 
 ## Example
 

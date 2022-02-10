@@ -31,6 +31,8 @@ In the long term, we intend to create a new consensus, which we are calling `Nom
 
 ### Session-based approach to adding and rewarding storage providers
 
+*Note*: We currently follow a fairly naive scheme for incentivizing validators to store content. We intend to replace the below scheme with something much more mature in the future.
+
 Validator nodes are a superset of the storage provider nodes. Validators, using the iris-session pallet, can request to store some owned content added to Iris. For example, if a node has added data and created a content asset class, then a validator node can request to store the content during the subsequent session.
 
 There are three phases to each session:
@@ -45,12 +47,23 @@ When we say **current session** we mean a session that has been *planned*, and f
 
 2. Session Start: The active session is incremented by one.
 
-3. Session End: Rewards are distributed to the participants during the session. Currently, this is manifested as "reward points" but will be OBOL (as calculated by reward points) in the future.
+3. Session End: Validiators that have been storing data but have not accumulated any reward points for some preconfigured number of sessions (MaxDeadSessions) is removed from the validator pool.
 
 ### Reward Point Calculation
 
-Reward points are the interim rewards that storage providers receive processing requests in the DataQueue. These scenarios are when a content owner has requested to add data to Iris via the `create` extrinsic, when successfully pinning data, when a consumer has requested to fetch bytes from ipfs through the `retrieve_data` extrinsic.
+Reward points are the interim rewards that storage providers receive for processing requests in the DataQueue. DataCommands are added to the DataQueue when:
 
-All nodes with sufficient storage process AddBytes requests.
+- a content owner has requested to add data to Iris via the `create` extrinsic
+- successfully pinning data
+- a consumer has requested to fetch bytes from ipfs through the `retrieve_data` extrinsic.
 
 When data is requested from Iris, the underlying IPFS network will fetch the bytes from one of the storage providers (though it's possible it could exist in another node since we don't have much in terms of garbage collection in rust-ipfs). Though it may be possible to determine exactly which IPFS node the data was fetched from, this is most likely computationally expensive. We track the number of times some data was successfully requested (i.e. the number of times a consumer requested to fetch the content of an asset class of which they own an asset). At the end of the session, the total sum is distributed evenly to storage providers for that asset during the session.
+
+Validators are rewarded for:
+
+- Processing requests to inject data into IPFS (basically `ipfs add [cid]`)
+  - Awarded 1 RP
+- Pinning data to their embedded IPFS node (`ipfs pin [cid]`)
+  - Awarded 1 RP
+- Indirectly, when another node requests data they are providing storage for
+  - The number of unallocated tokens for the session is incremented by 1

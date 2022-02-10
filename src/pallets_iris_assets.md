@@ -1,5 +1,7 @@
 # Iris-Assets
 
+Please reference the documentation [here](TODO) for further details on extrinsics exposed by the module.
+
 The iris-assets module relies on the [assets module](https://github.com/paritytech/substrate/blob/master/frame/assets/README.md) available in Substrate. This pallet provides capabilities for content owners and content consumers. This module is entirely independent of IPFS. It provides capabilities to:
 
 - inject data into the network
@@ -17,3 +19,5 @@ Asset class creation is accomplished through the `create` extrinsic. The extrins
 ### Access via Assets
 
 After a node has successfully created an asset class, they can mint assets from the asset class. Each asset is synonymous with access to the underlying content.
+
+This module also exposes an extrinsic to request data from the network.

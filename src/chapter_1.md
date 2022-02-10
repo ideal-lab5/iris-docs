@@ -31,7 +31,7 @@ Owned data is treated as a unique asset class within the blockchain, while acces
 
 ## Vision
 
-Iris’ goal is to be a general cross chain storage layer for parachains, smart contracts, or parathreads in the polkadot and kusama ecosystems.
+Iris aims to be a general decentralized storage layer for web3 applications, specifically in the kusama/polkadot ecosystems. Iris enables parachains, smart contracts, and parathreads to benefit from secure decentralized storage by taking advantage of XCM to transfer assets between chains.
 
 The initial motivation of Iris is to solve the “streaming problem”: As the number of streaming services with exclusive rights to content increases, the actual content to which consumers have access diminishes due to the arbitrary cloistering of content. In a decentralized approach, individual content owners can retain ownership of their content while doing away with a subscription based model. However, Iris may facilitate a plethora of applications whose scope is far beyond streaming.
 
