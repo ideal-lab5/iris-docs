@@ -12,12 +12,44 @@ The iris-assets module delivers asset class and derived asset management. This m
 
 ## Runtime Details
 
-### Content as an asset class
+### Extrinsics
 
-Asset class creation is accomplished through the `create` extrinsic. The extrinsic writes to the DataQueue, adding an Addbytes command. This command is processed by validator nodes in the iris-session pallet
+Functions to inject data into the network and to create and manage asset classes and assets
 
-### Access via Assets
+- `create`
+- `mint`
+- `burn`
+- `destroy`
+- `transfer_asset`
 
-After a node has successfully created an asset class, they can mint assets from the asset class. Each asset is synonymous with access to the underlying content.
+Function to allow consumers to request data from the network
 
-This module also exposes an extrinsic to request data from the network.
+- `request_bytes`
+
+Functions that allow offchain workers to submit results from IPFS commands
+
+- `submit_ipfs_add_results`
+- `insert_pin_request`
+
+### RPC
+
+The iris-assets pallet contains the implementation of the RPC endpoint which fetches dat from the network. See more details [here](./rpc.md)
+
+### Data Ownership as Asset Class Ownership
+
+When a node adds data to Iris, the OCW that processes the request constructs a new asset class backed by some initial (user defined) amount of native currency. This results in a new `DataCommand` being added to the processing queue. When an OCW proceses the command and publishes results on chain, a new asset class is created. Asset creation and access is initiated in the iris-assets pallet but processed in the iris-session pallet.
+
+![data-ingestion](./resources/data_ingestion.drawio.png)
+
+Our initial use case makes assumptions that we will break in the future:
+
+1. There is an injective and surjective map between owner/cid and asset class.
+2. Owning any non-zero quantity of assets in an asset class grants the owner access to the underlying data
+
+### Accessing Data Via Minted Assets
+
+To retrieve data, a node makes a request to Iris, adding a request to retrieve bytes to the queue. An OCW processes the command and adds the fetched content to local offchain storage. The node which requested the data can then invoke the `iris_retrieveBytes` RPC endpoint exposed on the node who fetched the content in order to retrieve it.
+
+First, a node that owns some positive balance of an asset requests access to it. When this request is processed by the calling node's OCW, the OCW stores the data in offchain storage. When the RPC endpoint is invoked, the data is returned to the authorized caller in the response.
+
+![data-ejection part 1](./resources/data_ejection_p1.drawio.png)

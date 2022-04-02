@@ -32,7 +32,7 @@ From the latest sources, build the docker image:
 
 ### From Sources
 
-```
+``` bash
 # purge the local chain data
 ./target/release/node-template purge-chain --base-path /tmp/alice --dev -y
 # run the build
@@ -53,7 +53,7 @@ Note: to specify a bootnode, use the bootnodes parameter. ex: `--bootnodes /ip4/
 
 ### From Docker
 
-```
+``` bash
 docker run -p 9944:9944 \
   -p 9933:9933 \
   -p 30333:30333 \
@@ -68,15 +68,15 @@ docker run -p 9944:9944 \
 
 *note: node-key is only needed if you want this node to be a bootnode*
 
-# Interacting with your node
+## Interacting with your node
 
 *See the [tech overview](../src/chapter_3.md) for information on extrinsics, rpc, etc.*
 
-## PolkadotJs
+### PolkadotJs
 
 As the UI undergoes development, the most *stable* way to interact with your node is to use the default [polkadotjs ui](https://polkadot.js.org/).
 
-## The Iris UI
+### The Iris UI
 
 The Iris UI provides a mechanism to add and retrieve data from Iris, to create an asset class, mint assets, privision data access, and manage both asset classes and assets.
 
@@ -84,7 +84,7 @@ If you intend to add data to Iris, you must also run an IPFS node locally. This 
 
 ### Running from Sources
 
-```
+``` bash
 git clone https://github.com/iridium-labs/ui.git
 cd ui
 npm i
@@ -93,7 +93,7 @@ REACT_APP_IPV4=<your ipv4> npm start
 
 ### Running from Docker
 
-```
+``` bash
 docker pull iridiumlabs/iris-ui
 # replace w.x.y.z with your ip
 docker run -it --rm -p 3000:3000 -e "REACT_APP_IPV4=w.x.y.z" iridiumlabs/iris-ui

@@ -23,22 +23,22 @@ We use react to build the user interface to interact with our node. We specifica
 
 Iris functions by embedding an IPFS node within the substrate runtime and allowing substrate nodes to form a private IPFS swarm. By building a blockchain layer on top of the embedded storage, we are able to track calls and responses to IPFS on chain, allowing nodes to be rewarded for storing and retrieving data.
 
-The Iris runtime builds from exsiting modules within the Substrate runtime, specifically the session and assets modules. In general, the Iris-Assets module, which depends on the assets modules, provides data ingestion, and asset class management. The Iris-Session module enables session based storage for content owner, where storage is provided by network validators. Read more on the Iris-assets and Iris-Session modules [here](./pallets.md).
+The Iris runtime builds from exsiting modules within the Substrate runtime, specifically the session and assets modules. It is currently a proof of authority network. In general, the Iris-Assets module, which depends on the assets modules, provides data ingestion, and asset class management. The Iris-Session module enables session based storage for content owner, where storage is provided by network validators. Read more on the Iris-assets and Iris-Session modules [here](./pallets.md).
 
 ![runtime modules](./resources/runtime_modules.png)
 
-There are four roles that nodes can take in Iris:
+Currently there are four roles that nodes can take in Iris:
 
 1. data owner
 2. data consumer
 3. validator
 4. storage provider
 
-Data owners are responsible for adding data to the Iris and creating, managing and minting asset classes and assets.
+In the future another role will be created for moderation and governance capabilities.
+
+Data owners are responsible for adding data to Iris by creating, managing and minting asset classes and assets.
 
 Data consumers are capable of retrieving data from Iris when they hold an asset minted from some owned asset class.
-
-Iris is a PoA network, so validators are responsible for finalizing blocks.
 
 Any validator is capable of being a storage provider. A storage provider is a validator that is actively storing some data associated with an owned asset class. Validators are incentivized to store data by earning reward points when they process IPFS requests or when data they are pinning is accessed.
 

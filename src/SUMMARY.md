@@ -1,9 +1,15 @@
 # Summary
 
-- [Introduction](./chapter_1.md)
-- [Getting Started](./chapter_2.md)
-- [Technical Overview](./chapter_3.md)
+- [Introduction](./introduction.md)
+- [Getting Started](./getting_started.md)
+- [Technical Overview](./tech_overview.md)
 - [Pallets](./pallets.md)
   - [Iris-Assets](./pallets_iris_assets.md)
   - [Iris-Session](./pallets_iris_session.md)
+  - [Iris-Ledger](./pallets_iris_ledger.md)
 - [RPC Endpoint Implementation](./rpc.md)
+- [Contracts](./contracts.md)
+  - [Chain Extension](./contracts_chain_extension.md)
+  - [Iris Asset Exchange](./contracts_asset_exchange.md)
+- [Governance and Moderation](./governance_moderation.md)
+- [Glossary](./glossary.md)
