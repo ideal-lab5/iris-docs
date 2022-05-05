@@ -1,6 +1,6 @@
 # Introduction
 
-This is the official documentation for [Iris](https://github.com/iridium-labs/substrate/tree/iris).
+This is the official documentation for [Iris](https://github.com/ideal-labs/substrate/tree/iris).
 
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
@@ -40,7 +40,7 @@ The initial motivation of Iris is to solve the “streaming problem”: As the n
 
 ## Contact
 
-- twitter: https://twitter.com/Iridium_labs
-- website: http://iridium.industries/
-- email: driemworks@iridium.industries
+- twitter: https://twitter.com/ideal_labs
+- website: http://idealabs.network/
+- email: driemworks@idealabs.network
 - discord: https://discord.gg/w8PF9MM6

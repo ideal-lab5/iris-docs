@@ -4,7 +4,7 @@ The Iris Asset Exchange is a decentralized exchange to facilitate the buying and
 
 ## Usage
 
-The source code and README for the IAE is located [here](https://github.com/iridium-labs/contracts/tree/main/iris_asset_exchange).
+The source code and README for the IAE is located [here](https://github.com/ideal-labs/contracts/tree/main/iris_asset_exchange).
 
 The iris-ui exposes a user interface to interact with the contract.
 

@@ -12,7 +12,7 @@ There are three ways to install iris, either building the source code, building 
 ### Sources
 
 ``` 
-git clone https://github.com/iridium-labs/substrate.git
+git clone https://github.com/ideal-labs/substrate.git
 cd substrate
 git checkout iris
 cargo +nightly build --release

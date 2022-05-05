@@ -7,7 +7,7 @@
 
 ### IPFS
 
-Our integration with [rust-ipfs](https://github.com/rs-ipfs/rust-ipfs) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The iridium-labs/substrate [offchain_ipfs_v3](https://github.com/iridium-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master.
+Our integration with [rust-ipfs](https://github.com/rs-ipfs/rust-ipfs) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The ideal-labs/substrate [offchain_ipfs_v3](https://github.com/ideal-labs/substrate/tree/offchain_ipfs_v3) branch maintained in sync with the latest substrate master.
 
 The ui we provide relies on a local IPFS instance to add data (iris does not). To add data through the UI you must first run an instance of IPFS locally (you don't need to run an IPFS if you want read only access).
 
