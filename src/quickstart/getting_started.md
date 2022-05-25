@@ -11,7 +11,7 @@ There are three ways to install iris, either building the source code, building 
 
 ### Sources
 
-``` 
+``` bash
 git clone https://github.com/ideal-labs/substrate.git
 cd substrate
 git checkout iris
@@ -101,7 +101,7 @@ docker run -it --rm -p 3000:3000 -e "REACT_APP_IPV4=w.x.y.z" iridiumlabs/iris-ui
 
 ## Testing
 
-Run the unit tests with `cargo test`.
+Run the unit tests with `cargo +nightly test iris`.
 
 ## Guidelines
 
