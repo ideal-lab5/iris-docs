@@ -1,5 +1,7 @@
 # Offchain Client
 
+*currently under development - The offchain client is not currently implemented*
+
 Each data owner and data consumer runs an instance of an offchain client locally. The client acts both as a file staging server and as a means to retrieve files from proxy nodes. The offchain client allows owners and consumers to fetch and injgest data into/from the network without having to run a full client. That is, it allows them to run a light client in the browser, which drastically increases the ease of use of Iris.
 
 ## Data Ingestion

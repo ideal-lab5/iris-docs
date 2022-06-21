@@ -1,13 +1,16 @@
 # Storage
 
-The Iris storage system is designed to promote a fully decentralized network by being both availability-encouraging as well as having a low barrier to entry.
+*currently under development - The storage system is not currently implemented*
+Iris is capable of integrating with nearly any storage system, be it centralized or decentralized. We accomplish this through the use of a generic storage connector module.
 
-## The OBOL
+## Hot Storage
 
-The OBOL is the token that powers the storage system in Iris. OBOL is minted on demand and is an on-chain representation of off-chain storage.
+Iris uses embedded instances of IPFS to enable hot-storage within the runtime. It runs a secondary runtime, which runs the ipfs daemon within proxy nodes, allowing them to add, remove, pin, and cat data, as well as share it with other nodes. Additionally, this enables Iris to use the full power of IPFS to deliver data to consumers.
 
-## The storage system
+## Cold Storage
 
-For a full mathematical breakdown of the storage system, please see section 4 of the [iris whitepaper](https://idealabs.network/docs).
+Cold storage is configurable within Iris via the storage connector module. Iris allows for the storage connector to be developed to support nearly any storage system, centralized or decentralized.
 
-## Become a storage node
+In our local test environment we enable storage to a local server.
+
+Once we deploy to Kusama, we will leverage Crust as our cold storage solution.

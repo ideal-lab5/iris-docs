@@ -1,6 +1,6 @@
 # Introduction
 
-This is the official documentation for [Iris](https://github.com/ideal-lab5/substrate/tree/iris), developed and maintained by [ideal labs](https://idealabs.network).
+This is the official documentation for [Iris](https://github.com/ideal-lab5/iris), developed and maintained by [ideal labs](https://idealabs.network).
 
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
@@ -10,13 +10,11 @@ Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/ma
 
 ## What is Iris?
 
-Iris is a decentralized network that provides a secure data storage, delivery, and ownership layer for Web 3.0 applications. It is infrastructure for the decentralized web, providing a storage and data exchange which enables the transfer and monetization of access to and ownership of data across chains, smart contracts and participants in the network or connected through a relay chain. Iris provides security, availability, reputation, and governance on top of IPFS, enabling data ownership, access management, and the commodification of latent storage capacity and content delivery. It applies defi concepts to data, reputation, storage capacity and availability to synthesize computation and storage and to represent off-chain assets in an on-chain context. We build a cryptographically verifiable relationship between data storage, access and ownership.
+Iris is a decentralized data exchange protocol that enables a secure data storage, delivery, and ownership layer for Web 3.0 applications. It is infrastructure for the decentralized web, providing a data exchange which enables the transfer and monetization of access to and ownership of data across chains, smart contracts and participants in the network or connected through a relay chain, by building a cryptographically verifiable relationship between storage and ownership. Iris provides security, availability, reputation, and governance on top of storage, enabling data ownership, access management, smart contract support for data, and content delivery. It applies defi concepts to data, reputation, storage capacity and availability to synthesize computation and storage and to represent off-chain assets in an on-chain context.
 
 ## How does it work?
 
-Iris functions by embedding an IPFS node in the Substrate runtime, allowing us to encode the DHT status on-chain. This lets us enable a **cryptographically verifiable relationship** between data ownership, access, and availability.
-
-Owned data is treated as a unique asset class within the blockchain, while access to the data is controlled by an asset minted from the asset class. Accounts that hold a positive balance of an asset are authorized to access the underlying content that the asset class is associated with. Iris will also have the capability to transfer assets between parachains and smart contracts, enabling a novel way to access data across the web.
+Iris functions by building a **cryptographically verifiable relationship** between data ownership, access, and availability. Data ownership is treated as an on-chain asset class, while access (equivalently, partial ownership) is granted by owning an asset minted from the asset class, subject to business logic as determined by the data owner (via [composable access rules](./contracts/composable_access_rules.md)).
 
 ## Key Features
 
@@ -25,8 +23,8 @@ Owned data is treated as a unique asset class within the blockchain, while acces
   - Access to content is synonymous with owning assets minted from the asset class. This allows us to easily transfer *access* to data across parachains and smart contracts.
 - **Data Spaces**
   - Data spaces act as unique, owned enclaves of data within the network. Any node can create their own data space, define who can associate their data with it, and further what kinds of data are allowed to exist within their space.
-- **Availability Encouraging Storage System**
-  - Iris uses an availability-encouraging storage system to maximize data aviailability without compromising the decentralized nature of the network
+- **Configurable Storage System**
+  - Iris is capable of leveraging many different storage systems to meet user needs.
 - **smart contract support**
   - interact with the iris runtime through the [chain extension](./contracts_chain_extension.md)
 - **Secure**
@@ -40,11 +38,7 @@ For a full breakdown of where we are in the implementation of these features, ta
 
 ## Vision
 
-Iris aims to be a general decentralized storage layer for web3 applications, specifically (but not limited to) in the dotsama ecosystem. Iris enables parachains, smart contracts, and parathreads to benefit from secure decentralized storage by taking advantage of XCM to transfer assets between chains.
 
-We envision that Iris can facilitate a new variety of dapps (that are currently too expensive or not readily feasible) that leverage decentralized storage, represented as asset classes, in a cross-chain, cross contract environment, where Iris acts as a common storage layer.
-
-The initial motivation of Iris is to solve the “streaming problem”: As the number of streaming services with exclusive rights to content increases, the actual content to which consumers have access diminishes due to the arbitrary cloistering of content. In a decentralized approach, individual content owners can retain ownership of their content while doing away with a subscription based model. However, Iris may facilitate a plethora of applications whose scope is far beyond streaming.
 
 ## Contact
 

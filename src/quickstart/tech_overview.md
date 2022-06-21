@@ -4,9 +4,7 @@
 
 ### IPFS
 
-Our integration with [rust-ipfs](https://github.com/rs-ipfs/rust-ipfs) is based on [prior work](https://rs-ipfs.github.io/offchain-ipfs-manual/introduction.html). The basis of storage within Iris used [rust-ipfs](https://github.com/rs-ipfs/rust-ipfs) (please note: rust-ipfs itself is experimental).
-
-The ui we provide relies on a local IPFS instance to add data (iris does not). To add data through the UI you must first run an instance of IPFS locally (you don't need to run an IPFS if you want read only access).
+Iris uses go-ipfs for our 'hot' storage system, which is supported by proxy nodes. This integration is currently unavailable in Iris, but will be coming soon.
 
 ### Substrate
 
@@ -22,23 +20,15 @@ Iris functions by embedding an IPFS node within the substrate runtime and allowi
 
 The Iris runtime builds on exsiting modules within the Substrate runtime, specifically the session and assets modules. It is currently a proof of authority network. In general, the Iris-Assets module, which depends on the assets modules, provides data ingestion, and asset class management. The Iris-Session module enables session based storage for content owner, where storage is provided by network validators. Read more on the Iris-assets and Iris-Session modules [here](./pallets.md).
 
-![runtime modules](./resources/runtime_modules.png)
+![runtime modules](../resources/runtime_modules.png)
 
-Currently there are four roles that nodes can take in Iris:
+### Node Types
 
-1. data owner
-2. data consumer
-3. validator
-4. storage provider
+There are several node types within Iris, each with their own distinct capabilities:
+
+1. Data owner
+2. Data consumer
+3. [Validator](./validators.md)
+4. [proxy Node](./proxy.md)
 
 In the future another role will be created for moderation and governance capabilities.
-
-Data owners are responsible for adding data to Iris by creating, managing and minting asset classes and assets.
-
-Data consumers are capable of retrieving data from Iris when they hold an asset minted from some owned asset class.
-
-Any validator is capable of being a storage provider. A storage provider is a validator that is actively storing some data associated with an owned asset class. Validators are incentivized to store data by earning reward points when they process IPFS requests or when data they are pinning is accessed.
-
-Below, we see a high-level overview of how these four roles interact with one another. In the near future we intend to create a smart contract to realize an Iris Assets Exchange, a marketplace for data owners and data consumers to buy, sell, and share assets.
-
-![iris-overview](./resources/iris_overview.png)

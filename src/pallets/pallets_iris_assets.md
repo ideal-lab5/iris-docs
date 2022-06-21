@@ -20,14 +20,9 @@ Functions to inject data into the network and to create and manage asset classes
 - `destroy`
 - `transfer_asset`
 
-Function to allow consumers to request data from the network
-
-- `request_bytes`
-
 Functions that allow offchain workers to submit results from IPFS commands
 
 - `submit_ipfs_add_results`
-- `insert_pin_request`
 
 ### RPC
 

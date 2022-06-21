@@ -8,7 +8,7 @@ To add data to the network, a data owner must first run the [offchain client](./
 
 ### Adding Composable Access Rules
 
-TODO
+\* In progress *
 
 ## Provisioning data access
 

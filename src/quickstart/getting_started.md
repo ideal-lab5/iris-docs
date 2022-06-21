@@ -9,24 +9,23 @@
 
 There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker.
 
-### Sources
+### Build from Sources
 
 ``` bash
-git clone https://github.com/ideal-labs/substrate.git
-cd substrate
-git checkout iris
+git clone https://github.com/ideal-lab5/iris.git
+cd iris
 cargo +nightly build --release
 ```
 
 ### Docker
 
 Install from the docker hub
-`docker pull iridiumlabs/iris`
+`docker pull ideallabs/iris`
 
 **OR**
 
 From the latest sources, build the docker image:
-`docker build -t iridiumlabs/iris -f ./.maintain/Dockerfile .`
+`docker build -t ideallabs/iris -f /Dockerfile .`
 
 ## Running
 
@@ -36,7 +35,7 @@ From the latest sources, build the docker image:
 # purge the local chain data
 ./target/release/node-template purge-chain --base-path /tmp/alice --dev -y
 # run the build
-./target/release/node-template \
+./target/release/iris-node \
   --base-path /tmp/alice \
   --dev \
   --alice \
@@ -61,16 +60,14 @@ docker run -p 9944:9944 \
   -it \
   --rm \
   --name iris-alice \
-  iridiumlabs/iris \
+  ideallabs/iris \
   --dev --ws-external --rpc-external \
   --node-key 0000000000000000000000000000000000000000000000000000000000000001
 ```
 
-*note: node-key is only needed if you want this node to be a bootnode*
-
 ## Interacting with your node
 
-*See the [tech overview](../src/chapter_3.md) for information on extrinsics, rpc, etc.*
+*See the [tech overview](./tech_overview.md) for information on extrinsics, our tech stack, and more.*
 
 ### PolkadotJs
 
@@ -85,18 +82,17 @@ If you intend to add data to Iris, you must also run an IPFS node locally. This 
 ### Running from Sources
 
 ``` bash
-git clone https://github.com/iridium-labs/ui.git
+git clone https://github.com/ideal-lab5/ui.git
 cd ui
 npm i
-REACT_APP_IPV4=<your ipv4> npm start
+npm start
 ```
 
 ### Running from Docker
 
 ``` bash
-docker pull iridiumlabs/iris-ui
-# replace w.x.y.z with your ip
-docker run -it --rm -p 3000:3000 -e "REACT_APP_IPV4=w.x.y.z" iridiumlabs/iris-ui
+docker pull ideallabs/iris-ui
+docker run -it --rm -p 3000:3000 ideallabs/iris-ui
 ```
 
 ## Testing
