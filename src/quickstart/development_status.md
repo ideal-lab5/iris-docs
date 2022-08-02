@@ -29,7 +29,6 @@ The intention of this phase is to implement several features that enable Iris to
 
 To summarize, in the following we propose:
 
-
 - the introduction of "data spaces"
 - the implementation of "composable access rules" to apply custom business logic to data
 - the introduction of "proxy nodes" that enable threshold encryption within the network

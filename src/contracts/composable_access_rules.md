@@ -4,7 +4,7 @@ A **composable access rule** is a smart contract that allows data owners to defi
 
 A **rule executor** allows a data owner to determine a unique collection of rules that shall be executed in order to provide authorization to data consumers to access their data. At a basic level, a rule executor makes cross contract calls to each composable access rule and then uses the `submit_execution_results` function exposed from our chain extension to report the results back on chain, which feeds into the locking mechanism managed by the [iris-ejection pallet](../pallets/pallets_iris_ejection.md).
 
-## How?
+## How it works
 
 All composable access rules are smart contracts which impement the ComposableAccessRule trait. In particular, each rule implements the function:
 

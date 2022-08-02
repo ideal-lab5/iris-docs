@@ -1,4 +1,4 @@
-# Data Spaces Module
+# Data Spaces Pallet
 
 ## Overview
 

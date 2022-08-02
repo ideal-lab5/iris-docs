@@ -1,4 +1,4 @@
-# Iris-Assets
+# Data-Assets Pallet
 
 The iris-assets module relies on the [assets module](https://github.com/paritytech/substrate/blob/master/frame/assets/README.md) available in Substrate. This pallet provides capabilities for content owners and content consumers. This module is entirely independent of IPFS. It provides capabilities to:
 

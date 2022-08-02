@@ -1,4 +1,4 @@
-# Iris-Ledger
+# Ledger Pallet
 
 The ledger pallet is a utility pallet meant to facilitate locking and unlocking of funds to ensure existence of funds when buying and selling assets within the iris ecosystem.
 
