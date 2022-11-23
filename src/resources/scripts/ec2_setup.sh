@@ -2,7 +2,7 @@
 #%
 #% Iris EC2 Installer
 #% v0.0.1
-#% written by" driemworks
+#% written by driemworks
 #%
 #% A script to install Iris on an EC2 running the Amazon Linux 2 AMI.
 #% This script will install IPFS, Docker, Nginx, and Iris and enable 
@@ -11,6 +11,7 @@
 #%%%%%%%%%%%%%%%%%
 
 echo "Iris EC2 Installer V1.0.0"
+echo "Ideal Labs, 2022"
 
 echo "STAGE 1: Update packages"
 # update instance
@@ -29,9 +30,10 @@ ipfs --version
 
 # Cleanup
 cd ~
-rm kubo_v0.14.0_linux-amd64.tar.gz
+rm kubo_v0.16.0_linux-amd64.tar.gz
 
 # configure IPFS
+ipfs init
 ipfs config Addresses.API "/ip4/0.0.0.0/tcp/5001"
 ipfs config Addresses.Gateway "/ip4/0.0.0.0/tcp/8080"
 ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
@@ -39,9 +41,9 @@ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials "[\"true\"]"
 
 # setup as a service
 # fetch the ipfs.service file
-wget https://github.com/ideal-lab5/iris/mater/tree/blah come back to this line
+wget https://raw.githubusercontent.com/ideal-lab5/iris-docs/master/src/resources/scripts/ipfs.service
 # copy to proper location
-sudo cp ipfs.service /etc/systemd/system/ipfs.service
+sudo mv ipfs.service /etc/systemd/system/ipfs.service
 
 # setup as a service
 # to enable the service on startup
@@ -66,3 +68,14 @@ sudo systemctl start docker
 # verify running
 sudo systemctl status docker
 
+echo "STAGE 4: Install and Configure NGINX"
+sudo amazon-linux-extras install -y nginx1
+# enable as system service
+sudo systemctl enable nginx
+# start service
+sudo systemctl start nginx
+
+# pull the latest iris image
+docker pull driemworks/iris
+
+echo "Complete! :)"
