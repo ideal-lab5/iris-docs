@@ -6,7 +6,7 @@ The iris-assets module relies on the [assets module](https://github.com/parityte
 - create and manage data asset classes
 - mint, transfer, and destroy assets
 
-The iris-assets module delivers data asset class and data asset management. This module appends commands to a DataQueue which are processed by validator nodes (see the [iris-session](./pallets_iris_session.md) module for more info) in a module which implements logic for offchain workers to process commands in the DataQueue (in our case, the iris-session pallet).
+The iris-assets module delivers data asset class and data asset management. This module appends commands to a DataQueue which are processed by validator nodes (see the [iris-session](./pallet_iris_session.md) module for more info) in a module which implements logic for offchain workers to process commands in the DataQueue (in our case, the iris-session pallet).
 
 ## Runtime Details
 

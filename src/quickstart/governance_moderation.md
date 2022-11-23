@@ -1,3 +1,0 @@
-# Governance and Moderation
-
-TODO

@@ -2,19 +2,18 @@
 
 Iris provides several new pallets on top of those available by default in Substrate.
 
-1. [Iris-Assets](./pallets/pallet_iris_assets.md)
-2. [Iris-Session](./pallets/pallet_iris_session.md)
-3. [Iris-Ledger](./pallets/pallet_iris_ledger.md)
-4. [Data Spaces](./pallets/pallets_data_spaces.md)
-5. Iris-Storage: In development
-6. Iris-Proxy: In development
+1. [Data Assets](./pallets/pallet_data_assets.md.md)
+2. [Authorities](./pallets/pallet_iris_session.md)
+3. [Ledger](./pallets/pallet_iris_ledger.md)
+4. [Data Spaces](./pallets/pallet_data_spaces.md)
+5. [Proxy](./pallets/pallet_proxy.md)
 
 ![runtime modules](./resources/runtime_modules.png)
 *Completed and active modules are marked in purple, planned modules in yellow. Dependencies are represented as arrows*
 
 ## Data Spaces
 
-The [Data Spaces](./pallets/pallets_data_spaces.md) pallet lets users define data spaces that data asset classes can be associated with.
+The [Data Spaces](./pallets/pallet_data_spaces.md) pallet lets users define data spaces that data asset classes can be associated with.
 
 ## Iris Assets
 
@@ -26,7 +25,7 @@ The [Iris-Session](./pallets/pallet_iris_session.md) pallet provides session-bas
 
 ## Iris Ledger
 
-The [Iris-Ledger](./pallets/pallets_iris_ledger.md) pallet allows nodes to lock, unlock, and transfer native tokens.
+The [Iris-Ledger](./pallets/pallet_iris_ledger.md) pallet allows nodes to lock, unlock, and transfer native tokens.
 
 ## Iris Storage
 

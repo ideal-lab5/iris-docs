@@ -6,7 +6,7 @@ The iris chain extension provides functionality for dapp developers to hook into
 
 ### From the Iris-Assets pallet
 
-See the [iris-assets](./pallets_iris_assets.md) for more details.
+See the [iris-assets](./pallet_iris_assets.md) for more details.
 
 - create
 - request bytes
@@ -15,7 +15,7 @@ See the [iris-assets](./pallets_iris_assets.md) for more details.
 
 ## From the Iris-Ledger pallet
 
-See the [iris-ledger](./pallets_iris_ledger.md) for more details.
+See the [iris-ledger](./pallet_iris_ledger.md) for more details.
 
 - lock_currency
 - unlock_and_transfer_currency

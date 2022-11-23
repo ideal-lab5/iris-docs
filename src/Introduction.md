@@ -1,46 +1,34 @@
 # Introduction
 
-This is the official documentation for [Iris](https://github.com/ideal-lab5/iris), developed and maintained by [ideal labs](https://idealabs.network).
+This is the official documentation for [Iris](https://github.com/ideal-lab5/iris), developed and maintained by [Ideal Labs](https://idealabs.network).
 
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
 ![sponsored by web3 foundation](./resources/web3_foundation_grants_badge_black.png)
 
-Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris.md)
+Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris_followup.md)
 
 ## What is Iris?
 
-Iris is a **decentralized data exchange protocol** that enables a secure data ownership, access management, and delivery layer for Web 3.0 applications. It is infrastructure for the decentralized web. By building a cryptographically verifiable relationship between storage and ownership, Iris provides a data exchange which enables the transfer and monetization of access to and ownership of data across chains, smart contracts and participants in the network or connected through a relay chain. Iris provides security, reputation, and governance on top of storage, enabling data ownership, monetization, access management, capabilities to define unique business logic for data access and authorization, as well as smart contract support for content delivery. It applies DeFi concepts to data to represent off-chain assets in an on-chain context by representing data as a unique asset class with access to the underlying data controlled by ownership of assets minted from the asset class.
+Iris is a blockchain that enables a general purpose **decentralized data exchange**. It is infrastructure for the decentralized web, allowing for the development of decentralized applications where data sovereignty is preserved, data provenance is provable, and where decentralized governance and moderation without censorship is feasible. It is intended to enable transfer and monetization of access to and ownership of data across blockchains, smart contracts and participants in the network. 
 
 ## How does it work?
 
-Iris functions by building a **cryptographically verifiable relationship** between data ownership, access, and availability. Data ownership is treated as an on-chain asset class, while access (equivalently, partial ownership) is granted by owning an asset minted from the asset class, subject to business logic as determined by the data owner (via [composable access rules](./contracts/composable_access_rules.md)).
+Iris functions by building a **cryptographically verifiable relationship** between data ownership, access, and availability. Data ownership is treated as an on-chain asset class, which allows for the fractionalization of ownership of digital assets. Through a rule based, smart contract approach, data access models are [programmable](./contracts/composable_access_rules.md) and fully transparent. The network implements a [secret sharing protocol](link here) that uses proxy reencryption and ECDH to provide security and ownership to your data. 
 
 ## Key Features
 
-- **Ownership and Access via Assets**
-  - Owned content in Iris is treated as a unique asset class
-  - Access to content is synonymous with owning assets minted from the asset class. This allows us to easily transfer *access* to data across parachains and smart contracts.
-- **Data Spaces**
-  - Data spaces act as unique, owned enclaves of data within the network. Any node can create their own data space, define who can associate their data with it, and further what kinds of data are allowed to exist within their space.
-- **Unique Authorization and Access Models**
-  - Data owners can use rule executors and composable access rules to define unique authorization and access models for their data.
-- **Configurable Storage System**
-  - Iris is capable of leveraging many different storage systems to meet user needs, including support for both centralized and decentralized storage solutions.
-- **smart contract support**
-  - interact with the iris runtime through the [chain extension](./contracts_chain_extension.md)
-- **Secure**
-  - Iris uses a **threshold encryption** mechanism to secure your data.
-- **Social**
-  - Through an anonymous feedback and reputation system, data consumers can rate data owners, individual data, and data spaces.
-- **Transparent Governance**
-  - In the future Iris will provide a robust governance framework that allows us to accomplish the same level of governance as major platform and service providers while maintaining decentralization and full transparency.
+- Provable Data Ownership and Provenance
+- Fractionalized Ownership of Digital Assets
+- Smart Contract Support and Programmable Data Access Models
+- Data Security using Encryption and Decryption with proxy reencryption and ECDH
+- Transparent Data Governance and Moderation Capabilities
 
 For a full breakdown of where we are in the implementation of these features, take a look at our [roadmap](./quickstart/development_status.md).
 
 ## Vision
 
-
+We believe that decentralization of the web, tranisitioning from web2 to web3, is the optimal path moving forward, and that this ecosystem requires mechanisms to securely store, transport, and prove ownability, and that Iris provides the groundwork for a general decentralized data exhcange system. As such, we envision Iris as being a key enabler in a new class of decentralized applications that take advantage of provable data ownership and provenance to construct decentralized systems that fairly reward creators, consumers, and other participants in the system. We see Iris as providing a framework for inverting the present relationship between data creators and 'centralized platform providers', where rather than supplying data to a platform where the ownership is transferred, data creators are able to 'lease' their data to platforms or dapps using transparents governance, policies, and agreements.
 
 ## Contact
 

@@ -1,5 +1,7 @@
 # Getting Started
 
+This is a minimal guide on how to build and run a full Iris node *locally*, both from docker and sources. For a full guide on properly setting up an hosted Iris node, see [here](../nodes/ec2_setup.md) 
+
 1. [Installation](#installation)
 2. [Running](#running)
 3. [Interacting with your Node](#interacting-with-your-node)
@@ -9,28 +11,19 @@
 
 There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker.
 
-### Build from Sources
+### Run from Sources
 
+#### Prerequisites
+
+- [install Rust](https://www.rust-lang.org/tools/install)
+
+#### Build
 ``` bash
 git clone https://github.com/ideal-lab5/iris.git
 cd iris
 cargo +nightly build --release
 ```
-
-### Docker
-
-Install from the docker hub
-`docker pull ideallabs/iris`
-
-**OR**
-
-From the latest sources, build the docker image:
-`docker build -t ideallabs/iris -f /Dockerfile .`
-
-## Running
-
-### From Sources
-
+#### Run
 ``` bash
 # purge the local chain data
 ./target/release/node-template purge-chain --base-path /tmp/alice --dev -y
@@ -45,12 +38,30 @@ From the latest sources, build the docker image:
   --rpc-cors all \
   --ws-external \
   --rpc-external \
-  --rpc-methods=unsafe
+  --rpc-methods=unsafe \
+  --validator \
+  --node-key 0000000000000000000000000000000000000000000000000000000000000001
 ```
 
 Note: to specify a bootnode, use the bootnodes parameter. ex: `--bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEdUQFXhAF4fu9hqRTWqsigioyjatRKRZ7mwyQCBoWyK3`
 
-### From Docker
+<br></br>
+
+### Run from Docker
+
+#### Prerequisites
+
+- [install Docker](https://docs.docker.com/get-docker/) (if you just want to run a node)
+
+Install from the docker hub
+`docker pull ideallabs/iris`
+
+**OR**
+
+From the latest sources, build the docker image:
+`docker build -t ideallabs/iris -f /Dockerfile .`
+
+#### Run
 
 ``` bash
 docker run -p 9944:9944 \
@@ -61,7 +72,7 @@ docker run -p 9944:9944 \
   --rm \
   --name iris-alice \
   ideallabs/iris \
-  --dev --ws-external --rpc-external \
+  --dev --ws-external --rpc-external --validator --alice \
   --node-key 0000000000000000000000000000000000000000000000000000000000000001
 ```
 
@@ -71,7 +82,7 @@ docker run -p 9944:9944 \
 
 ### PolkadotJs
 
-As the UI undergoes development, the most *stable* way to interact with your node is to use the default [polkadotjs ui](https://polkadot.js.org/).
+The [polkadotjs apps](https://polkadot.js.org/) user interface is a useful tool for interacting with and monitoring the network state.
 
 ### The Iris UI
 
