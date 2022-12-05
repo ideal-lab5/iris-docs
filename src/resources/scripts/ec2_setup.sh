@@ -68,14 +68,15 @@ sudo systemctl start docker
 # verify running
 sudo systemctl status docker
 
-echo "STAGE 4: Install and Configure NGINX"
-sudo amazon-linux-extras install -y nginx1
+# echo "STAGE 4: Install and Configure NGINX"
+# sudo amazon-linux-extras install -y nginx1
 # enable as system service
-sudo systemctl enable nginx
+# sudo systemctl enable nginx
 # start service
-sudo systemctl start nginx
+# sudo systemctl start nginx
 
-# pull the latest iris image
-docker pull driemworks/iris
+# fetch the chain spec
+cd ~
+wget https://raw.githubusercontent.com/driemworks/iris/main/iris.json
 
-echo "Complete! :)"
+echo "Complete! Your node is ready to run Iris.)"

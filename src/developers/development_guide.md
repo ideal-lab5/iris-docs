@@ -9,21 +9,25 @@ This is a minimal guide on how to build and run a full Iris node *locally*, both
 
 ## Installation
 
-There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker.
+There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker. The easiest and most reliable way to run an Iris is node is to 
 
 ### Run from Sources
 
 #### Prerequisites
 
 - [install Rust](https://www.rust-lang.org/tools/install)
+- [install IPFS](https://docs.ipfs.tech/install/)
 
 #### Build
+
 ``` bash
 git clone https://github.com/ideal-lab5/iris.git
 cd iris
 cargo +nightly build --release
 ```
+
 #### Run
+
 ``` bash
 # purge the local chain data
 ./target/release/node-template purge-chain --base-path /tmp/alice --dev -y
@@ -45,13 +49,11 @@ cargo +nightly build --release
 
 Note: to specify a bootnode, use the bootnodes parameter. ex: `--bootnodes /ip4/127.0.0.1/tcp/30333/p2p/12D3KooWEdUQFXhAF4fu9hqRTWqsigioyjatRKRZ7mwyQCBoWyK3`
 
-<br></br>
-
 ### Run from Docker
 
 #### Prerequisites
 
-- [install Docker](https://docs.docker.com/get-docker/) (if you just want to run a node)
+- [install Docker](https://docs.docker.com/getdocker/)
 
 Install from the docker hub
 `docker pull ideallabs/iris`
@@ -64,6 +66,7 @@ From the latest sources, build the docker image:
 #### Run
 
 ``` bash
+# run as validator node (e.g. first node)
 docker run -p 9944:9944 \
   -p 9933:9933 \
   -p 30333:30333 \
@@ -78,11 +81,19 @@ docker run -p 9944:9944 \
 
 ## Interacting with your node
 
-*See the [tech overview](./tech_overview.md) for information on extrinsics, our tech stack, and more.*
+See [here](../developers/data_ingestion/md) for a more in depth treatment of 
 
-### PolkadotJs
+### IPFS configuration
+Update your ipfs configuration to specify the IPFS bootstrap nodes exposed by the testnet. This step will allow Iris gateway nodes to find your data.
 
-The [polkadotjs apps](https://polkadot.js.org/) user interface is a useful tool for interacting with and monitoring the network state.
+These values are publicly available in the 'bootstrap nodes' runtime storage map in the ipfs pallet.
+
+``` bash
+# e.g. in the iris testnet
+ipfs bootstrap add /ip4/18.118.65.202/tcp/4001/p2p/12D3KooWJ5wuqGnr6u8XV6FeBbP1MBBamUpavwfotRag2JnTrF9p
+ipfs bootstrap add /ip4/3.12.124.166/tcp/4001/p2p/12D3KooWK4ASu9ik6RWJv8cRJ6ypg2rUpgR369gZjAZRVPJ41KpD
+ipfs bootstrap add /ip4/3.14.26.5/tcp/4001/p2p/12D3KooWJHvwXTX8hrkZnYpegHMbxazRUFU8zgd99nFqmqbjN6B6
+```
 
 ### The Iris UI
 
@@ -90,7 +101,7 @@ The Iris UI provides a mechanism to add and retrieve data from Iris, to create a
 
 If you intend to add data to Iris, you must also run an IPFS node locally. This holds for running from sources as well as the docker image. Run IPFS with `ipfs daemon`.
 
-### Running from Sources
+#### Running from Sources
 
 ``` bash
 git clone https://github.com/ideal-lab5/ui.git
@@ -99,11 +110,31 @@ npm i
 npm start
 ```
 
-### Running from Docker
+#### Running from Docker
 
 ``` bash
 docker pull ideallabs/iris-ui
 docker run -it --rm -p 3000:3000 ideallabs/iris-ui
+```
+
+### PolkadotJs
+
+The [polkadotjs apps](https://polkadot.js.org/) user interface is a useful tool for interacting with and monitoring the network state.
+
+#### Light Client
+
+*Coming Soon*
+
+- relay chain deployed
+- parachain registered
+- chain spec generation and distribution
+- Configuration in iris ui
+
+## Generating a custom chain spec
+
+``` bash
+cargo +nightly build --release
+./target/release/iris-node build-spec --chain=dev --raw --disable-default-bootnode > iris.json
 ```
 
 ## Testing

@@ -15,6 +15,17 @@ Additionally, if you're running the IPFS node as well, you can choose to allow t
 ### Setup Elastic IP (optional)
 You'll find it useful to allocate an elastic IP to your EC2 instance. It's not required, but will save you time in the future to avoid your instance's IP changing. 
 
+## Installing Prerequisites
+
+The following is a breakdown of the different components that are required and how to install and configure them. They are encompassed within the `ec2_setup.sh` script. To install from the script, run:
+
+``` bash
+wget https://raw.githubusercontent.com/ideal-lab5/iris-docs/master/src/resources/scripts/ec2_setup.sh
+sudo chmod 744 ec2_setup.sh
+./ec2_setup.sh
+sudo rm ec2_setup.sh
+```
+
 ### Update instance
 
 Update the EC2 instance's libraries to the latest versions.
@@ -91,7 +102,7 @@ You can now use IPFS on your EC2! Try adding and fetching some data. However, we
 # install docker
 sudo yum install docker
 # add group membership for default user 
-# (can avoid using `sudo docker ...` later (e.g. in a script))
+# this is optional, but doing so lets you avoid using `sudo docker ...` later (e.g. in a script)
 sudo usermod -a -G docker ec2-user
 id ec2-user
 newgrp docker
@@ -108,6 +119,8 @@ sudo systemctl status docker
 ``` bash
 # pull the latest iris docker image
 docker pull ideallabs/iris
+# pull the latest chain spec
+wget https://raw.githubusercontent.com/driemworks/iris/main/iris.json
 # run your iris node
 # there are many variations you can use to run your node
 # see the [getting started guide](../quickstart/getting_started.md) for details
@@ -115,12 +128,13 @@ docker run --add-host host.docker.internal:host-gateway -p 9944:9944 \
   -p 9933:9933 \
   -p 30333:30333 \
   -p 9615:9615 \
+  -v ~/iris.json:mnt/iris.json
   -it \
   --rm \
   --name iris-node \
   ideallabs/iris \
-  --rpc-cors all --unsafe-ws-external --rpc-external --rpc-methods=unsafe --dev \
-  --bootnodes /ip4/18.118.65.202/tcp/30333/p2p/12D3KooWEyoppNCUx8Yx66oV9fJnriXwCcXwDDUA2kj6vnc6iDEp
+  --chain=/mnt/iris.json \
+  --rpc-cors all --unsafe-ws-external --rpc-external --rpc-methods=unsafe
 ```
 
 ### Setup as service

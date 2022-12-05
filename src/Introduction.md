@@ -4,9 +4,6 @@ This is the official documentation for [Iris](https://github.com/ideal-lab5/iris
 
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
-![sponsored by web3 foundation](./resources/web3_foundation_grants_badge_black.png)
-
-Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris_followup.md)
 
 ## What is Iris?
 
@@ -29,6 +26,12 @@ For a full breakdown of where we are in the implementation of these features, ta
 ## Vision
 
 We believe that decentralization of the web, tranisitioning from web2 to web3, is the optimal path moving forward, and that this ecosystem requires mechanisms to securely store, transport, and prove ownability, and that Iris provides the groundwork for a general decentralized data exhcange system. As such, we envision Iris as being a key enabler in a new class of decentralized applications that take advantage of provable data ownership and provenance to construct decentralized systems that fairly reward creators, consumers, and other participants in the system. We see Iris as providing a framework for inverting the present relationship between data creators and 'centralized platform providers', where rather than supplying data to a platform where the ownership is transferred, data creators are able to 'lease' their data to platforms or dapps using transparents governance, policies, and agreements.
+
+## Partners
+
+![sponsored by web3 foundation](./resources/web3_foundation_grants_badge_black.png)
+
+Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris_followup.md)
 
 ## Contact
 
