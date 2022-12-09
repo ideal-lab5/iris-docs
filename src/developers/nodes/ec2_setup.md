@@ -48,14 +48,7 @@ ipfs --version
 ```
 
 ### Configure IPFS
-We'll make the IPFS API and Gateway listen on 0.0.0.0 instead of 127.0.0.1.
-
-``` bash
-ipfs config Addresses.API "/ip4/0.0.0.0/tcp/5001"
-ipfs config Addresses.Gateway "/ip4/0.0.0.0/tcp/8080"
-ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
-ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials "[\"true\"]"
-```
+See [here](../development_guide.md#ipfs-configuration).
 
 ### Setup as Service
 

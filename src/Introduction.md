@@ -32,11 +32,3 @@ We believe that decentralization of the web, tranisitioning from web2 to web3, i
 ![sponsored by web3 foundation](./resources/web3_foundation_grants_badge_black.png)
 
 Read our w3f grant proposal [here](https://github.com/w3f/Grants-Program/blob/master/applications/iris_followup.md)
-
-## Contact
-
-- twitter: https://twitter.com/ideal_labs
-- website: https://idealabs.network/
-- email: driemworks@idealabs.network
-- discord: https://discord.gg/w8PF9MM6
-- github: github.com/ideal-lab5

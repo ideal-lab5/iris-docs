@@ -1,10 +1,9 @@
 # Glossary
 
-* asset
-* asset class
+## asset class
 ## cid
-* data space
-* ipfs
-* multiaddress
-* substrate
-* wasm
+## data space
+## ipfs
+## multiaddress
+## substrate
+## wasm

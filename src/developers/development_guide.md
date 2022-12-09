@@ -2,23 +2,23 @@
 
 This is a minimal guide on how to build and run a full Iris node *locally*, both from docker and sources. For a full guide on properly setting up an hosted Iris node, see [here](../nodes/ec2_setup.md) 
 
-1. [Installation](#installation)
-2. [Running](#running)
-3. [Interacting with your Node](#interacting-with-your-node)
-4. [Testing](#testing)
+## Building
 
-## Installation
+### Prerequisites
 
-There are three ways to install iris, either building the source code, building a docker image, or simply installing from docker. The easiest and most reliable way to run an Iris is node is to 
+- [Install Rust](https://www.rust-lang.org/tools/install) and dependencies
 
-### Run from Sources
+``` bash
+curl https://sh.rustup.rs -sSf | sh
+rustup update
+sudo apt install build-essential git clang libclang-dev pkg-config libssl-dev
+```
 
-#### Prerequisites
+- [Install and Configure IPFS](#ipfs-installation-and-configuration)
 
-- [install Rust](https://www.rust-lang.org/tools/install)
-- [install IPFS](https://docs.ipfs.tech/install/)
+### Build
 
-#### Build
+Clone the main repo and build the node. This can take up to 10 minutes.
 
 ``` bash
 git clone https://github.com/ideal-lab5/iris.git
@@ -83,16 +83,48 @@ docker run -p 9944:9944 \
 
 See [here](../developers/data_ingestion/md) for a more in depth treatment of 
 
-### IPFS configuration
-Update your ipfs configuration to specify the IPFS bootstrap nodes exposed by the testnet. This step will allow Iris gateway nodes to find your data.
+### IPFS Installation and Configuration
 
-These values are publicly available in the 'bootstrap nodes' runtime storage map in the ipfs pallet.
+- [install IPFS](https://docs.ipfs.tech/install/) and configure
 
 ``` bash
-# e.g. in the iris testnet
-ipfs bootstrap add /ip4/18.118.65.202/tcp/4001/p2p/12D3KooWJ5wuqGnr6u8XV6FeBbP1MBBamUpavwfotRag2JnTrF9p
-ipfs bootstrap add /ip4/3.12.124.166/tcp/4001/p2p/12D3KooWK4ASu9ik6RWJv8cRJ6ypg2rUpgR369gZjAZRVPJ41KpD
-ipfs bootstrap add /ip4/3.14.26.5/tcp/4001/p2p/12D3KooWJHvwXTX8hrkZnYpegHMbxazRUFU8zgd99nFqmqbjN6B6
+wget https://dist.ipfs.io/kubo/v0.14.0/kubo_v0.14.0_linux-amd64.tar.gz
+tar -xvzf kubo_v0.14.0_linux-amd64.tar.gz
+cd kubo
+sudo bash install.sh
+ipfs --version
+```
+
+Update your ipfs configuration to specify the IPFS bootstrap nodes exposed by the testnet. This step will allow Iris gateway nodes to find your data.
+
+First, ensure that your ipfs node is reachable 
+
+``` bash
+ipfs config Addresses.API "/ip4/0.0.0.0/tcp/5001"
+ipfs config Addresses.Gateway "/ip4/0.0.0.0/tcp/8080"
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials "[\"true\"]"
+```
+
+This step is optional. Generally, finding peers in the IPFS DHT is rather slow. Due to this, using a public IPFS network can mean that the calls to find data take a very long time, which causes validator nodes to be  removed from the validator set. Due to this, it is recommended that you either use the [swarm.key](https://raw.githubusercontent.com/ideal-lab5/iris/main/swarm.key) in use by Iris or generate your own.
+
+Generate a swarm key:
+
+``` bash
+echo -e "/key/swarm/psk/1.0.0/\n/base16/\n`tr -dc 'a-f0-9' < /dev/urandom | head -c64`" > ~/.ipfs/swarm.key
+```
+
+and share the generated file with each validator in your testnet.
+
+Now, configure Available bootstrap nodes are available in the 'bootstrap nodes' runtime storage map in the ipfs pallet.
+
+``` bash
+# fetch the swarm.key and copy it to your .ipfs folder
+wget https://raw.githubusercontent.com/driemworks/iris/main/swarm.key
+# reconfigure bootstrap nodes
+ipfs bootstrap rm --all
+# replace the 
+ipfs bootstrap add /ip4/<ip address>/tcp/4001/p2p/<peerID>
 ```
 
 ### The Iris UI

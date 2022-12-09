@@ -4,25 +4,7 @@ The iris chain extension provides functionality for dapp developers to hook into
 
 ## Exposed Functions
 
-### From the Iris-Assets pallet
-
-See the [iris-assets](./pallet_iris_assets.md) for more details.
-
-- create
-- request bytes
-- mint
-- transfer_assets
-
-## From the Iris-Ledger pallet
-
-See the [iris-ledger](./pallet_iris_ledger.md) for more details.
-
-- lock_currency
-- unlock_and_transfer_currency
-
-## Usage
-
-To functions from the chain extension in your smart contract, register the chain extension:
+To use functions from the chain extension in your smart contract, register the chain extension in your contract:
 
 ``` rust
 #[ink::chain_extension]
@@ -45,6 +27,15 @@ pub trait Iris {
 
     #[ink(extension = 3, returns_result = false)]
     fn unlock_and_transfer(target: ink_env::AccountId) -> [u8; 32];
+
+    #[ink(extension = 4, returns_result = false)]
+    fn submit_results(
+        caller: ink_env::AccountId, 
+        consumer: ink_env::AccountId, 
+        asset_id: u32, 
+        result: bool, 
+        public_key: [u8;32],
+    ) -> [u8; 32];
 } 
 ```
 
