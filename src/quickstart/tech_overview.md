@@ -1,6 +1,6 @@
 # Technical Overview
 
-
+This is a brief overview of the core technologies used by the Iris blockchain.
 
 ## Tech Stack
 
@@ -16,17 +16,8 @@ Iris uses kubo (previously go-ipfs) for our 'hot' storage system. IPFS is a dist
 
 We use react to build the user interface to interact with our node. We specifically rely on the `polkadotjs` and `ipfs-http-core` libraries.
 
-## The Iris Runtime
+### High Level Network Architecture
 
+Iris has a dual network topology. At one layer, the Iris nodes form an IPFS network, and at the other the Iris nodes themselves form a second network. As an example, our initial test network uses an architeture like the one below:
 
-### Node Types
-
-There are several node types within Iris, each with their own distinct capabilities:
-
-1. Data owner
-2. Data consumer
-3. [Validator Node](./validators.md)
-4. [Proxy Node](./proxy.md)
-5. [Gateway Node](./gateway.md)
-
-And then what?
+![](../resources/testnet_architecture_simple.drawio.png)

@@ -113,7 +113,7 @@ sudo systemctl status docker
 # pull the latest iris docker image
 docker pull ideallabs/iris
 # pull the latest chain spec
-wget https://raw.githubusercontent.com/driemworks/iris/main/iris.json
+wget https://raw.githubusercontent.com/ideal-lab5/iris/main/iris.json
 # run your iris node
 # there are many variations you can use to run your node
 # see the [getting started guide](../quickstart/getting_started.md) for details

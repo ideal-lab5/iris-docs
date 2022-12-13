@@ -1,9 +1,14 @@
-# Introduction
-
 This is the official documentation for [Iris](https://github.com/ideal-lab5/iris), developed and maintained by [Ideal Labs](https://idealabs.network).
+
+
+<p align="center">
+  <img width="600" height="600" src="./resources/iris_logo_small.png">
+</p>
+
 
 `This documentation and any information in it is subject to frequent and radical change as Iris is developed.`
 
+# Introduction
 
 ## What is Iris?
 
