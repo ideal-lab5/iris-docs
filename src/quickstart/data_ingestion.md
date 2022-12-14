@@ -14,7 +14,7 @@ Run an IPFS node and an Iris node. Either build your own network or connect to t
 
 ### Step 1: Encryption
 
-In this first phase, we encrypt some plaintext using the `iris_encrypt` RPC endpoint exposed by each Iris node. The endpoint uses the umbral_pre TPRE library to generate new keys and encrypt your data. Subsequently, it sends an unsigned tx to include the generated 'capsule' and public key on-chain (see [iris protocol](TODO) for more details). To allow a valid address to be authenticated and used for signing, the endpoint requires the caller to pass their account id along with a signature and signed message, which is used to recover the caller's account.
+In this first phase, we encrypt some plaintext using the `iris_encrypt` RPC endpoint exposed by each Iris node. The endpoint uses the umbral_pre TPRE library to generate new keys and encrypt your data. Subsequently, it sends an unsigned tx to include the generated 'capsule' and public key on-chain (see [iris protocol](https://github.com/ideal-lab5/whitepaper/blob/main/IRIS_PROTOCOL_DRAFT_0.0.1.pdf) for more details). To allow a valid address to be authenticated and used for signing, the endpoint requires the caller to pass their account id along with a signature and signed message, which is used to recover the caller's account.
 
 **To choose a proxy node** query the x25519_public_keys runtime storage map in the 'Authorities' pallet and choose any validator with a key.
 
@@ -36,8 +36,6 @@ You can then call the iris_encrypt RPC with
         .then(res => success_callback(res))
         .catch(err => error_callback(err));
 ``` 
-
-For an example, see how we handle uploads in the [iris-ui](TODO)
 
 ### Step 2: Add ciphertext to IPFS
 

@@ -6,7 +6,6 @@ This document explains how to run a full Iris node an AWS EC2 instance running A
 Create an EC2 instance with the amazon linux 2 AMI. We used a t2.micro.
 
 ### Configuring Security Groups
-TODO: Verify 
 
 Iris uses ports 9933, 9944, 9615, and 30333, so you must allow inbound/outbound traffic on those ports at least.
 

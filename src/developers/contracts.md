@@ -18,4 +18,4 @@ The first app built on Iris is an asset exchange to allow data owners to sell ac
 
 ### Deploying a dapp
 
-TODO
+See: https://wiki.polkadot.network/docs/build-smart-contracts
